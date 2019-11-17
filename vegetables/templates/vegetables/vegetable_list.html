@@ -1,0 +1,60 @@
+{% extends "vegetables/base_menu.html" %}
+
+{% block content %}
+
+<h1>Vegetables</h1>
+
+<p>
+
+{% if vegetable_list %}
+
+<ul>
+
+  {% for vegetable in vegetable_list %}
+
+    <li>
+
+        <a href="{% url 'vegetables:vegetable_detail'  vegetable.id %}">{{ vegetable.title }}</a>
+
+        {% if vegetable.owner == user %}
+
+        (<a href="{% url 'vegetables:vegetable_update' vegetable.id %}">Edit</a> |
+
+        <a href="{% url 'vegetables:vegetable_delete' vegetable.id %}">Delete</a>)
+
+        </p>
+
+        {% endif %}
+
+    </li>
+
+  {% endfor %}
+
+</ul>
+
+{% else %}
+
+  <p>There are no vegetables in the database.</p>
+
+{% endif %}
+
+</p>
+
+<p>
+
+<a href="{% url 'vegetables:vegetable_create' %}">add an Vegetable</a> |
+
+{% if user.is_authenticated %}
+
+<a href="{% url 'logout' %}?next={% url 'vegetables:all' %}">Logout</a>
+
+{% else %}
+
+<a href="{% url 'login' %}?next={% url 'vegetables:all' %}">Login</a>
+
+{% endif %}
+
+</p>
+
+{% endblock %}
+

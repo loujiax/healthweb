@@ -1,0 +1,39 @@
+{% extends "vegetables/base_menu.html" %}
+
+{% load humanize %} <!-- https://docs.djangoproject.com/en/2.1/ref/contrib/humanize -->
+
+{% block content %}
+
+<span style="float: right;">
+
+{% if vegetable.owner == user %}
+
+<a href="{% url 'vegetables:vegetable_update' vegetable.id %}"><i class="fa fa-pencil"></i></a>
+
+<a href="{% url 'vegetables:vegetable_delete' vegetable.id %}"><i class="fa fa-trash"></i></a>
+
+{% endif %}
+
+</span>
+
+<h1 style="font-family:Georgia;text-align:center">{{ vegetable.title }}</h1>
+<h6 style="text-align:right">author: {{ vegetable.owner }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ vegetable.created_at }}</h6>
+<br />
+{% if vegetable.content_type %}
+<img style="float:right; max-width:50%;" src="{% url 'vegetables:vegetable_picture' vegetable.id %}">
+{% endif %}
+
+<p >
+
+{{ vegetable.text }}
+
+</p>
+
+<p>
+
+<a href="{% url 'vegetables:all' %}">All vegetables</a>
+
+</p>
+
+{% endblock %}
+

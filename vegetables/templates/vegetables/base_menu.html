@@ -1,0 +1,74 @@
+{% extends "base_bootstrap.html" %}
+{% block navbar %}
+{% load app_tags %}
+      <!-- reference： https://blog.csdn.net/man_zuo/article/details/82790384 -->
+
+<style type="text/css">
+    .header{
+    height: 40px ; width:100%;
+    margin-left:0;
+    background:#209CEE;
+    position: fixed;top:0px;
+    margin-bottom: 5px;
+}
+
+    .top{
+     width:90%;margin-left:0;
+    background:#FFF;
+    position: fixed;top: 40px;
+
+}
+.top ul{
+    width: auto;
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-left: 5%;
+    padding: 0;
+}
+.top li {
+    float:left;
+    margin-right:4%;  <!--distances between two li-->
+    position: relative;
+
+}
+
+.top li a{
+    text-align: center;
+    color:black;
+    padding: 3px;
+    text-decoration: none; <!--no __-->
+}
+.top li a:hover{
+    <!--when be clicked on, background become black-->
+    background-color: white ;
+}
+       </style>
+
+<div class="header">
+        <h1 style="font-family:Leckerli One;color:white;font-size:30px;text-align:right"> <i>  A website for health!</h1>
+</div>
+
+<div class="top">
+
+    <ul>
+      {% url 'vegetables' as vegetables %}
+    <li {% if request.get_full_path == vegetables %}class="active"{% endif %}>
+          <a href="{% url 'vegetables:all' %}"><b>Vegetables</b></a></li>
+    <li><a href="#"><b>nutrients</b></a></li>
+    <li><a href="#"><b>Diseases</b></a></li>
+    </ul>
+</div>
+<div class="right">
+    <ul  style="height: 30px ; width:10%;margin-left:90%;background:#DDD;position: fixed;top: 40px; margin-bottom: 5px;">
+        {% if user.is_authenticated %}
+        <li ><a style="color:black;" href="{% url 'logout' %}?next={% url 'vegetables:all' %}">Logout</a></li>
+        {% else %}
+        <li ><a style="color:black;" href="{% url 'login' %}?next={% url 'vegetables:all' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+
+
+
